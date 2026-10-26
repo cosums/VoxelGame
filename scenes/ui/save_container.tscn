@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://clefwykk2ieuu"]
+
+[ext_resource type="Script" uid="uid://p2ytvm6e6mo" path="res://scripts/SaveContainer.cs" id="1_0ujml"]
+[ext_resource type="FontFile" uid="uid://dk2wr20mtrc47" path="res://fonts/JetBrainsMono-Bold.ttf" id="2_7agv1"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2m0e4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jmll7"]
+font = ExtResource("2_7agv1")
+font_size = 36
+font_color = Color(0.7058824, 0.7058824, 0.7058824, 1)
+
+[node name="Save Container" type="Button" node_paths=PackedStringArray("name", "version", "accessed", "created")]
+custom_minimum_size = Vector2(0, 100)
+size_flags_vertical = 3
+script = ExtResource("1_0ujml")
+name = NodePath("World Organizer/Name")
+version = NodePath("World Organizer/Version")
+accessed = NodePath("World Organizer/Accessed")
+created = NodePath("World Organizer/Created")
+
+[node name="World Organizer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 341.0
+offset_bottom = 100.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="World Organizer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_2m0e4")
+
+[node name="Name" type="Label" parent="World Organizer"]
+layout_mode = 2
+text = "My Instance"
+label_settings = SubResource("LabelSettings_jmll7")
+horizontal_alignment = 1
+
+[node name="Version" type="Label" parent="World Organizer"]
+layout_mode = 2
+text = "My Instance"
+label_settings = SubResource("LabelSettings_jmll7")
+horizontal_alignment = 1
+
+[node name="Accessed" type="Label" parent="World Organizer"]
+layout_mode = 2
+text = "My Instance"
+label_settings = SubResource("LabelSettings_jmll7")
+horizontal_alignment = 1
+
+[node name="Created" type="Label" parent="World Organizer"]
+layout_mode = 2
+text = "My Instance"
+label_settings = SubResource("LabelSettings_jmll7")
+horizontal_alignment = 1

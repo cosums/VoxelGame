@@ -1,11 +1,12 @@
 [gd_scene load_steps=2 format=3 uid="uid://d3l4mea74t85t"]
 
-[ext_resource type="FontFile" uid="uid://lyvcfdn7evxc" path="res://fonts/RobotoMono-Bold.ttf" id="1_xcwwy"]
+[ext_resource type="FontFile" uid="uid://dk2wr20mtrc47" path="res://fonts/JetBrainsMono-Bold.ttf" id="1_18vib"]
 
 [node name="Label" type="Label"]
 custom_minimum_size = Vector2(1000, 0)
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_fonts/font = ExtResource("1_xcwwy")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("1_18vib")
+theme_override_font_sizes/font_size = 40
 text = "O"
 autowrap_mode = 3

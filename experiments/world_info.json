@@ -1,0 +1,16 @@
+{
+	"world" : {
+		"id" : 0,
+		"name" : "My Instance",
+		"layer" : "surface",
+		"version" : "0.1.5"
+	},
+	"generation" : {
+		"seed" : 3564,
+		"type" : 0
+	},
+	"timestamps" : {
+		"created" : 1,
+		"lastAccessed" : 2
+	}
+}

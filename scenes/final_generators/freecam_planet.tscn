@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://ttg5lm6ld0cg" path="res://scripts/ui_scripts/SphericalCoordinateDisplay.cs" id="2_a8dmg"]
 [ext_resource type="FontFile" uid="uid://lyvcfdn7evxc" path="res://fonts/RobotoMono-Bold.ttf" id="3_fbvo7"]
 [ext_resource type="Script" uid="uid://ddxti2fkatf5p" path="res://scripts/ui_scripts/VersionLabel.cs" id="4_vmwi4"]
-[ext_resource type="Script" uid="uid://de67xp3l6c7oh" path="res://scripts/final_generators/PlanetController.cs" id="7_nuhs6"]
+[ext_resource type="Script" uid="uid://de67xp3l6c7oh" path="res://scripts/terrain/core/PlanetController.cs" id="7_nuhs6"]
 [ext_resource type="Script" uid="uid://iclm3q47lood" path="res://scripts/player_scripts/DebugCamera.cs" id="10_ycljf"]
 [ext_resource type="Script" uid="uid://digydhqjdykx" path="res://scripts/player_scripts/OrbitalObject.cs" id="11_rit8s"]
 

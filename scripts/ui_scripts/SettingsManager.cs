@@ -1,15 +1,17 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public partial class SettingsManager : Control
 {
-    [Export] FlatController flatController;
+    [Export] FlatGenerator flatController;
     
     public override void _Ready()
     {
         Visible = false;
         CallDeferred(nameof(DeferredLoad));
+        Input.MouseMode = Input.MouseModeEnum.Captured;
     }
 
     private void DeferredLoad()
@@ -19,25 +21,28 @@ public partial class SettingsManager : Control
     
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("ui_cancel"))
+        if (@event.IsActionPressed("ui_cancel") && GameManager.Instance.State != GameState.Menus)
 		{
 			Toggle();
 		}
     }
 
     private bool toggled = false;
-    private void Toggle()
+    public void Toggle()
     {
         toggled = !toggled;
+        //GD.Print("Toggled Settings: " + toggled);
 
         if (toggled)
         {
             Visible = true;
+            GameManager.Instance.ChangeState(GameState.Paused);
         }
         else
         {
             Visible = false;
-            if (flatController != null)
+            GameManager.Instance.ChangeState(GameState.Playing);
+            if (flatController != null && UserSettings.Instance.dirty)
             {
                 flatController.UpdateSettings();
             }

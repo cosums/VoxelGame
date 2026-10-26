@@ -1,0 +1,468 @@
+[gd_scene format=3 uid="uid://cuf8a5apx6s5j"]
+
+[ext_resource type="Script" uid="uid://bvdmn0p0k2bbw" path="res://scripts/ui_scripts/Backdrop.cs" id="2_txltx"]
+[ext_resource type="FontFile" uid="uid://dk2wr20mtrc47" path="res://fonts/JetBrainsMono-Bold.ttf" id="3_tkoug"]
+[ext_resource type="Texture2D" uid="uid://se5cvwmc7g37" path="res://themes/grabber.tres" id="4_jpqyp"]
+[ext_resource type="Texture2D" uid="uid://4fg3icxqusi1" path="res://themes/grabber_highlight.tres" id="5_4dlfe"]
+[ext_resource type="StyleBox" uid="uid://bla8xb67y8efe" path="res://themes/settings_slider.tres" id="6_dne8q"]
+[ext_resource type="Script" uid="uid://dvklt37ft4nee" path="res://scripts/ui_scripts/MouseSensitivitySlider.cs" id="7_5ptjb"]
+[ext_resource type="Script" uid="uid://bf2gl00lmq8ld" path="res://scripts/ui_scripts/SliderValueTracker.cs" id="8_aoum3"]
+[ext_resource type="Script" uid="uid://b40osmdyd2jhi" path="res://scripts/ui_scripts/ViewDistanceSlider.cs" id="9_mrl80"]
+[ext_resource type="Script" uid="uid://18gmt381rt01" path="res://scripts/ui_scripts/LodRingSlider.cs" id="10_ax5ts"]
+[ext_resource type="Script" uid="uid://b8m1bpqmab7vm" path="res://scripts/ui_scripts/RingSlider.cs" id="11_ys6fo"]
+[ext_resource type="Script" uid="uid://iphhvknq81sx" path="res://scripts/ui_scripts/ThreadSlider.cs" id="12_3bu4f"]
+[ext_resource type="FontFile" uid="uid://bvokmmja2kuv1" path="res://fonts/JetBrainsMono-Regular.ttf" id="13_n6fqa"]
+[ext_resource type="Script" uid="uid://ci31kmhysl6cl" path="res://scripts/ui_scripts/SeedInput.cs" id="14_26qmf"]
+[ext_resource type="Script" uid="uid://m7jgw6p1hh4l" path="res://scripts/ui_scripts/FullScreenButton.cs" id="15_f15vg"]
+[ext_resource type="Script" uid="uid://bsu8w7k8q1fe3" path="res://scripts/ui_scripts/RendererSelector.cs" id="16_8eo2a"]
+[ext_resource type="Script" uid="uid://kfqg5hreaw1q" path="res://scripts/ui_scripts/TerminateButton.cs" id="17_jum6x"]
+[ext_resource type="Texture2D" uid="uid://dcpgixvifeh6m" path="res://icons/clipboard.png" id="18_3cv73"]
+[ext_resource type="Script" uid="uid://ddfncmtap2wb" path="res://scripts/ui_scripts/SystemCopy.cs" id="19_jg1kg"]
+[ext_resource type="Script" uid="uid://db7c5ndr4m2by" path="res://scripts/ui_scripts/VersionDisplayer.cs" id="20_dbbuw"]
+[ext_resource type="Shader" uid="uid://b2endrlaiierf" path="res://shaders/visuals/main_menu_crt.gdshader" id="20_jtjbl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pacj"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7pacj"]
+color = Color(0, 1, 0, 1)
+thickness = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_h175o"]
+font = ExtResource("3_tkoug")
+font_size = 36
+font_color = Color(0, 1, 0, 1)
+
+[sub_resource type="DPITexture" id="DPITexture_7d8i4"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><rect width=\"14\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".75\" rx=\"2.333\"/><path fill=\"#1a1a1a\" d=\"m11.5 3.75-5.6 5.6-1.7-1.7-1.5 1.5 3.2 3.2 7.1-7.1z\"/></svg>
+"
+base_scale = 3.0
+
+[sub_resource type="DPITexture" id="DPITexture_sft54"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><rect width=\"14\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" fill-opacity=\".5\" rx=\"2.333\"/></svg>
+"
+base_scale = 3.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_sft54"]
+font = ExtResource("3_tkoug")
+font_size = 36
+font_color = Color(0.9870251, 0.35596338, 0.25075784, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7d8i4"]
+font = ExtResource("3_tkoug")
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_jtjbl"]
+font = ExtResource("3_tkoug")
+font_size = 36
+font_color = Color(0.7058824, 0.7058824, 0.7058824, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_u4dfk"]
+font = ExtResource("3_tkoug")
+font_size = 36
+font_color = Color(0.7058824, 0.7058824, 0.7058824, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qp3pu"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sarcb"]
+resource_local_to_scene = true
+shader = ExtResource("20_jtjbl")
+shader_parameter/viewport_texture = SubResource("ViewportTexture_qp3pu")
+shader_parameter/band_strength = 0.1950000092625
+shader_parameter/band_density = 274.31200827982
+shader_parameter/warp_amount = 0.200000057
+
+[node name="Settings" type="Control" unique_id=388449996]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1213422068]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1280078105]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Backdrop" type="Panel" parent="SubViewportContainer/SubViewport" unique_id=1178611183]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7pacj")
+script = ExtResource("2_txltx")
+gridWidth = 150
+lineThickness = 4.0
+gridColor = Color(0, 0.14824149, 0, 1)
+driftSpeed = 15.0
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport" unique_id=1853467433]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.0011744)
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+
+[node name="Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer" unique_id=474494249]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+tooltip_text = "Copies system information to clipboard for debugging."
+theme_override_colors/icon_normal_color = Color(0.09411765, 1, 0, 1)
+icon = ExtResource("18_3cv73")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("19_jg1kg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer" unique_id=710335340]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TabContainer" type="TabContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer" unique_id=735232216]
+custom_minimum_size = Vector2(0, 800)
+layout_mode = 2
+theme_override_colors/font_selected_color = Color(0, 1, 0, 1)
+theme_override_colors/font_unselected_color = Color(0, 0.54509807, 0, 1)
+theme_override_constants/tab_separation = 8
+theme_override_fonts/font = ExtResource("3_tkoug")
+theme_override_font_sizes/font_size = 50
+tab_alignment = 1
+current_tab = 0
+tab_focus_mode = 0
+
+[node name="World" type="VBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer" unique_id=425988974]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="HSeparator" type="HSeparator" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/World" unique_id=883781547]
+layout_mode = 2
+theme_override_constants/separation = 128
+theme_override_styles/separator = SubResource("StyleBoxLine_7pacj")
+
+[node name="Seed Container" type="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/World" unique_id=1064714716]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/World/Seed Container" unique_id=1187468571]
+layout_mode = 2
+text = "Seed: "
+label_settings = SubResource("LabelSettings_h175o")
+
+[node name="Seed" type="LineEdit" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/World/Seed Container" unique_id=2025418125]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 1, 0, 0.6)
+theme_override_fonts/font = ExtResource("13_n6fqa")
+theme_override_font_sizes/font_size = 36
+placeholder_text = "0000000000"
+alignment = 1
+max_length = 10
+editable = false
+script = ExtResource("14_26qmf")
+
+[node name="Gameplay" type="VBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer" unique_id=1089288662]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="HSeparator" type="HSeparator" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay" unique_id=1824937543]
+layout_mode = 2
+theme_override_constants/separation = 128
+theme_override_styles/separator = SubResource("StyleBoxLine_7pacj")
+
+[node name="Mouse Sens Container" type="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay" unique_id=107974488]
+layout_mode = 2
+
+[node name="Mouse Sensitivity" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay/Mouse Sens Container" unique_id=1790834901]
+layout_mode = 2
+text = "Mouse sensitivity  "
+label_settings = SubResource("LabelSettings_h175o")
+
+[node name="Sensitivity" type="HSlider" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay/Mouse Sens Container" unique_id=1268531396]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("4_jpqyp")
+theme_override_icons/grabber_highlight = ExtResource("5_4dlfe")
+theme_override_styles/slider = ExtResource("6_dne8q")
+min_value = 1.0
+max_value = 99.0
+value = 50.0
+script = ExtResource("7_5ptjb")
+
+[node name="Value" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay/Mouse Sens Container" unique_id=1492085246 node_paths=PackedStringArray("sliderToTrack")]
+layout_mode = 2
+text = "  00"
+label_settings = SubResource("LabelSettings_h175o")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_aoum3")
+sliderToTrack = NodePath("../Sensitivity")
+
+[node name="Active Dist Container" type="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay" unique_id=90573966]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay/Active Dist Container" unique_id=54695981]
+layout_mode = 2
+text = "View distance      "
+label_settings = SubResource("LabelSettings_h175o")
+
+[node name="Slider" type="HSlider" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay/Active Dist Container" unique_id=795524883]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("4_jpqyp")
+theme_override_icons/grabber_highlight = ExtResource("5_4dlfe")
+theme_override_styles/slider = ExtResource("6_dne8q")
+min_value = 4.0
+max_value = 32.0
+value = 12.0
+script = ExtResource("9_mrl80")
+
+[node name="Value" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay/Active Dist Container" unique_id=938534976 node_paths=PackedStringArray("sliderToTrack")]
+layout_mode = 2
+text = "  00"
+label_settings = SubResource("LabelSettings_h175o")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_aoum3")
+sliderToTrack = NodePath("../Slider")
+
+[node name="Lod Rings" type="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay" unique_id=1136889038]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay/Lod Rings" unique_id=610596642]
+layout_mode = 2
+text = "LOD rings          "
+label_settings = SubResource("LabelSettings_h175o")
+
+[node name="Slider" type="HSlider" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay/Lod Rings" unique_id=1440716915]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("4_jpqyp")
+theme_override_icons/grabber_highlight = ExtResource("5_4dlfe")
+theme_override_styles/slider = ExtResource("6_dne8q")
+max_value = 5.0
+value = 2.0
+script = ExtResource("10_ax5ts")
+
+[node name="Value" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay/Lod Rings" unique_id=1357616032 node_paths=PackedStringArray("sliderToTrack")]
+layout_mode = 2
+text = "  00"
+label_settings = SubResource("LabelSettings_h175o")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_aoum3")
+sliderToTrack = NodePath("../Slider")
+
+[node name="Ring Radius" type="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay" unique_id=1250566483]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay/Ring Radius" unique_id=903767981]
+layout_mode = 2
+text = "Ring radius        "
+label_settings = SubResource("LabelSettings_h175o")
+
+[node name="Slider" type="HSlider" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay/Ring Radius" unique_id=1978032845]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("4_jpqyp")
+theme_override_icons/grabber_highlight = ExtResource("5_4dlfe")
+theme_override_styles/slider = ExtResource("6_dne8q")
+min_value = 1.0
+max_value = 8.0
+value = 4.0
+script = ExtResource("11_ys6fo")
+
+[node name="Value" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Gameplay/Ring Radius" unique_id=168843069 node_paths=PackedStringArray("sliderToTrack")]
+layout_mode = 2
+text = "  00"
+label_settings = SubResource("LabelSettings_h175o")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_aoum3")
+sliderToTrack = NodePath("../Slider")
+
+[node name="Graphics" type="VBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer" unique_id=1003836925]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="HSeparator" type="HSeparator" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Graphics" unique_id=693002975]
+layout_mode = 2
+theme_override_constants/separation = 128
+theme_override_styles/separator = SubResource("StyleBoxLine_7pacj")
+
+[node name="Toggles Container" type="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Graphics" unique_id=1488830193]
+layout_mode = 2
+alignment = 1
+
+[node name="Mouse Sensitivity2" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Graphics/Toggles Container" unique_id=1950425221]
+layout_mode = 2
+text = "Full screen "
+label_settings = SubResource("LabelSettings_h175o")
+
+[node name="CheckBox2" type="CheckBox" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Graphics/Toggles Container" unique_id=100398025]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+theme_override_icons/checked = SubResource("DPITexture_7d8i4")
+theme_override_icons/unchecked = SubResource("DPITexture_sft54")
+button_pressed = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = ExtResource("15_f15vg")
+
+[node name="Mouse Sensitivity4" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Graphics/Toggles Container" unique_id=1265827601]
+layout_mode = 2
+text = "    Renderer "
+label_settings = SubResource("LabelSettings_h175o")
+
+[node name="OptionButton" type="OptionButton" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Graphics/Toggles Container" unique_id=533707280 node_paths=PackedStringArray("warning")]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("13_n6fqa")
+theme_override_font_sizes/font_size = 36
+selected = 0
+item_count = 2
+popup/item_0/text = "Forward+"
+popup/item_0/id = 0
+popup/item_1/text = "Compatability"
+popup/item_1/id = 1
+script = ExtResource("16_8eo2a")
+warning = NodePath("../Mouse Sensitivity5")
+
+[node name="Mouse Sensitivity5" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Graphics/Toggles Container" unique_id=1151014490]
+layout_mode = 2
+text = "(restart required)"
+label_settings = SubResource("LabelSettings_sft54")
+
+[node name="Performance" type="VBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer" unique_id=506521227]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="HSeparator" type="HSeparator" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Performance" unique_id=71969806]
+layout_mode = 2
+theme_override_constants/separation = 128
+theme_override_styles/separator = SubResource("StyleBoxLine_7pacj")
+
+[node name="Thread Container" type="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Performance" unique_id=1649311936]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Performance/Thread Container" unique_id=152817739]
+layout_mode = 2
+text = "Chunk threads      "
+label_settings = SubResource("LabelSettings_h175o")
+
+[node name="Slider" type="HSlider" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Performance/Thread Container" unique_id=774734626 node_paths=PackedStringArray("countLabel")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("4_jpqyp")
+theme_override_icons/grabber_highlight = ExtResource("5_4dlfe")
+theme_override_styles/slider = ExtResource("6_dne8q")
+min_value = 1.0
+max_value = 16.0
+value = 6.0
+script = ExtResource("12_3bu4f")
+countLabel = NodePath("../Value")
+
+[node name="Thread Setter" type="Node" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Performance/Thread Container/Slider" unique_id=372185295]
+
+[node name="Value" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Performance/Thread Container" unique_id=1924155939 node_paths=PackedStringArray("sliderToTrack")]
+layout_mode = 2
+text = "  00"
+label_settings = SubResource("LabelSettings_7d8i4")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_aoum3")
+sliderToTrack = NodePath("../Slider")
+
+[node name="Audio" type="VBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer" unique_id=834432313]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="HSeparator" type="HSeparator" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Audio" unique_id=552897372]
+layout_mode = 2
+theme_override_constants/separation = 128
+theme_override_styles/separator = SubResource("StyleBoxLine_7pacj")
+
+[node name="Mouse Sensitivity" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Audio" unique_id=185619606]
+layout_mode = 2
+text = "But there were no sounds to hear..."
+label_settings = SubResource("LabelSettings_jtjbl")
+horizontal_alignment = 1
+
+[node name="Keybinds" type="VBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer" unique_id=520332228]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 5
+
+[node name="HSeparator" type="HSeparator" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Keybinds" unique_id=963009985]
+layout_mode = 2
+theme_override_constants/separation = 128
+theme_override_styles/separator = SubResource("StyleBoxLine_7pacj")
+
+[node name="Mouse Sensitivity" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer/TabContainer/Keybinds" unique_id=109704700]
+layout_mode = 2
+text = "But it was not complete..."
+label_settings = SubResource("LabelSettings_u4dfk")
+horizontal_alignment = 1
+
+[node name="Terminate Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/VBoxContainer" unique_id=1911733761]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_tkoug")
+theme_override_font_sizes/font_size = 50
+text = " RETURN "
+script = ExtResource("17_jum6x")
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport" unique_id=1662675054]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 269.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("13_n6fqa")
+text = "v0.0.0.0.0.0.0.0.0.0.0.0.0.1"
+script = ExtResource("20_dbbuw")
+
+[node name="Crt Display" type="ColorRect" parent="." unique_id=1103899637]
+material = SubResource("ShaderMaterial_sarcb")
+layout_mode = 0
+offset_top = 0.6741333
+offset_right = 1920.0
+offset_bottom = 1079.3259
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

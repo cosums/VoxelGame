@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://c21qjpxgqyciq"]
 
-[ext_resource type="Script" uid="uid://c44fxkpp0udl0" path="res://scripts/ui_scripts/GameSequence.cs" id="2_4vtf0"]
+[ext_resource type="Script" path="res://scripts/ui_scripts/GameSequence.cs" id="2_4vtf0"]
 [ext_resource type="Script" uid="uid://b7li5vq5hblgn" path="res://scripts/ui_scripts/AutoScroller.cs" id="2_dhnb1"]
 [ext_resource type="PackedScene" uid="uid://ph7fv8dfp2ow" path="res://scenes/ui/player_out.tscn" id="3_2u1pf"]
 [ext_resource type="FontFile" uid="uid://cx4itb0mvu0em" path="res://fonts/RobotoMono-Regular.ttf" id="3_dhnb1"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4h7038bfisy6"]
+
+[ext_resource type="Script" uid="uid://3gtd3o3kt52s" path="res://scripts/ui_scripts/loading_screen/DoublePendulum.cs" id="1_ncur7"]
+
+[node name="LoadingPendulum" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(825, 370)
+script = ExtResource("1_ncur7")
+maxTrailLength = 2000

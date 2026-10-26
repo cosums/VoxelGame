@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bqxw2p7yqrw61"]
+
+[ext_resource type="Script" uid="uid://c3bysl242gjim" path="res://scenes/cppthrowaway.gd" id="1_3f8jn"]
+
+[node name="Cppthrowaway" type="Node3D" unique_id=1546363991]
+script = ExtResource("1_3f8jn")

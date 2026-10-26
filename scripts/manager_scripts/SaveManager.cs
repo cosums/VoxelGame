@@ -13,7 +13,6 @@ public partial class SaveManager : Node
         {
             Instance = this;
             SetProcess(false);
-            //LoadData();
         }
         else
         {
@@ -22,7 +21,7 @@ public partial class SaveManager : Node
     }
 
     // The Settings!
-    [Export] public string savePath = "user://settings.cfg";
+    public string savePath = "user://INTERFACE_SETTINGS.toric";
     private Dictionary<string, ISaveable> saveables = new();
 
     public void RegisterSaveable(ISaveable obj)
@@ -55,6 +54,7 @@ public partial class SaveManager : Node
     {
         if (loadedConfig == null || !loadedConfig.HasSection(id))
         {
+            GD.PushWarning("Save file not found, using defaults!");
             return null;
         }
 
@@ -64,6 +64,7 @@ public partial class SaveManager : Node
             dict[key] = loadedConfig.GetValue(id, key);
         }
 
+        GD.Print("Loaded user data.");
         return dict;
     }
 

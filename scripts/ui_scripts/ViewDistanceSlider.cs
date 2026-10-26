@@ -6,13 +6,14 @@ public partial class ViewDistanceSlider : HSlider
 {
     public override void _Ready()
     {
-        Value = GameSettings.Instance.viewDistance;
+        Value = UserSettings.Instance.viewDistance;
 
         ValueChanged += OnValueChanged;
     }
 
     private void OnValueChanged(double value)
     {
-        GameSettings.Instance.viewDistance = (int)value;
+        UserSettings.Instance.viewDistance = (int)value;
+        UserSettings.Instance.MarkDirty();
     }
 }

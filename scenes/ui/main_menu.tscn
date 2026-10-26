@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://cym04e6rrwwoe"]
+
+[ext_resource type="Script" uid="uid://obierbfj2k3m" path="res://scripts/ui_scripts/Terminal.cs" id="1_btxxm"]
+[ext_resource type="Script" uid="uid://bv34jugh8wbdf" path="res://scripts/ui_scripts/main_menu/MainMenuController.cs" id="1_m1kxf"]
+[ext_resource type="PackedScene" uid="uid://dvr6701ug2mub" path="res://scenes/ui/proto_sphere.tscn" id="2_x2yvf"]
+[ext_resource type="Script" uid="uid://8p6pnxlf7372" path="res://scripts/ui_scripts/main_menu/Rotator.cs" id="3_uhagc"]
+[ext_resource type="PackedScene" uid="uid://bo1a4m1va44nc" path="res://scenes/ui/main_menu_ui.tscn" id="4_btxxm"]
+[ext_resource type="Environment" uid="uid://bokomlxhfb5vq" path="res://environments/main_menu_environment.tres" id="4_uhagc"]
+[ext_resource type="Shader" uid="uid://b2endrlaiierf" path="res://shaders/visuals/main_menu_crt.gdshader" id="5_x2yvf"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wb0q5"]
+viewport_path = NodePath("UI/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pdax0"]
+resource_local_to_scene = true
+shader = ExtResource("5_x2yvf")
+shader_parameter/viewport_texture = SubResource("ViewportTexture_wb0q5")
+shader_parameter/band_strength = 0.250000011875
+shader_parameter/band_density = 248.1650070378375
+shader_parameter/warp_amount = 0.200000057
+
+[node name="Main Menu" type="Node3D"]
+script = ExtResource("1_btxxm")
+
+[node name="Main Menu Controller" type="Node" parent="."]
+script = ExtResource("1_m1kxf")
+
+[node name="proto_sphere" parent="." instance=ExtResource("2_x2yvf")]
+process_mode = 3
+transform = Transform3D(0.90408254, -0.42735788, 0, 0.42735788, 0.90408254, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_uhagc")
+rotationSpeed = 10.0
+
+[node name="Menu Environment" type="WorldEnvironment" parent="."]
+environment = ExtResource("4_uhagc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="UI" type="SubViewportContainer" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="UI"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="UI/SubViewport/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="UI/SubViewport/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.914, 0, 3.5)
+fov = 37.8
+
+[node name="Root" parent="UI/SubViewport" instance=ExtResource("4_btxxm")]
+
+[node name="Crt Display" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_pdax0")
+offset_top = 0.6741333
+offset_right = 1920.0
+offset_bottom = 1079.3259
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

@@ -1,41 +1,82 @@
-[gd_scene load_steps=14 format=3 uid="uid://l5fh7qqldnnp"]
+[gd_scene format=3 uid="uid://l5fh7qqldnnp"]
 
+[ext_resource type="Script" uid="uid://causvvi0ihqfv" path="res://scripts/manager_scripts/LevelController.cs" id="1_4ytmu"]
 [ext_resource type="Script" uid="uid://dcto66trg4rt" path="res://scripts/ui_scripts/UtilsController.cs" id="1_hknqo"]
 [ext_resource type="FontFile" uid="uid://cx4itb0mvu0em" path="res://fonts/RobotoMono-Regular.ttf" id="1_jy8ti"]
 [ext_resource type="Script" uid="uid://ttg5lm6ld0cg" path="res://scripts/ui_scripts/SphericalCoordinateDisplay.cs" id="2_hknqo"]
 [ext_resource type="FontFile" uid="uid://lyvcfdn7evxc" path="res://fonts/RobotoMono-Bold.ttf" id="3_7jlic"]
 [ext_resource type="Script" uid="uid://ddxti2fkatf5p" path="res://scripts/ui_scripts/VersionLabel.cs" id="4_0pryn"]
 [ext_resource type="Script" uid="uid://iclm3q47lood" path="res://scripts/player_scripts/DebugCamera.cs" id="5_fgxar"]
-[ext_resource type="Script" uid="uid://bvqblrchqxt3c" path="res://scripts/final_generators/RaySphere.cs" id="6_kip6y"]
-[ext_resource type="Script" uid="uid://cocedn1olhi73" path="res://scripts/final_generators/FlatController.cs" id="7_was1v"]
+[ext_resource type="Script" uid="uid://bvqblrchqxt3c" path="res://scripts/player_scripts/RaySphere.cs" id="6_kip6y"]
+[ext_resource type="PackedScene" uid="uid://c8ynymmokej6d" path="res://scenes/ui/pause_menu.tscn" id="7_4ytmu"]
+[ext_resource type="Script" uid="uid://cocedn1olhi73" path="res://scripts/terrain/core/FlatGenerator.cs" id="7_was1v"]
 [ext_resource type="Material" uid="uid://b6taxos2sp26u" path="res://materials/other/sphere.tres" id="9_1yyoe"]
-[ext_resource type="PackedScene" uid="uid://drrrtt5kaj1f2" path="res://scenes/ui/settings.tscn" id="10_y002a"]
+[ext_resource type="Shader" uid="uid://b2endrlaiierf" path="res://shaders/visuals/main_menu_crt.gdshader" id="12_xa032"]
+[ext_resource type="Script" uid="uid://cpcux38y3le6g" path="res://scripts/ui_scripts/pause_menu/PauseCrt.cs" id="13_5gwyv"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ie2ng"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5gwyv"]
+sky_top_color = Color(0.21604285, 0.53918487, 0.6721546, 1)
+sky_horizon_color = Color(0.6154586, 0.682388, 0.72212243, 1)
+sky_curve = 0.051226534
 ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
 [sub_resource type="Sky" id="Sky_w7e5s"]
-sky_material = SubResource("ProceduralSkyMaterial_ie2ng")
+sky_material = SubResource("ProceduralSkyMaterial_5gwyv")
 
-[sub_resource type="Environment" id="Environment_u124o"]
+[sub_resource type="Environment" id="Environment_t5d4f"]
 background_mode = 2
 sky = SubResource("Sky_w7e5s")
 tonemap_mode = 2
 glow_enabled = true
-fog_mode = 1
-fog_light_color = Color(1, 1, 1, 1)
-fog_density = 1.0
-fog_sky_affect = 0.0
-fog_height = -1024.0
-fog_depth_begin = 400.0
-fog_depth_end = 512.0
-volumetric_fog_length = 512.45
-volumetric_fog_sky_affect = 0.0
 
-[node name="Level" type="Node3D"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_5gwyv"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
 
-[node name="Debug Utils" type="Control" parent="."]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t5d4f"]
+resource_local_to_scene = true
+shader = ExtResource("12_xa032")
+shader_parameter/viewport_texture = SubResource("ViewportTexture_5gwyv")
+shader_parameter/band_strength = 0.250000011875
+shader_parameter/band_density = 248.1650070378375
+shader_parameter/warp_amount = 0.200000057
+
+[node name="Level" type="Node3D" unique_id=347685706]
+
+[node name="World" type="Node3D" parent="." unique_id=301474821 node_paths=PackedStringArray("playerNode")]
+script = ExtResource("7_was1v")
+playerNode = NodePath("../SubViewportContainer/SubViewport/Debug Cam")
+viewDistance = 4
+lodRings = 4
+ringDistance = 2
+maxChunkThreads = 8
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=78647706]
+environment = SubResource("Environment_t5d4f")
+
+[node name="Node" type="Node" parent="." unique_id=804329737]
+script = ExtResource("1_4ytmu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2059821544]
+transform = Transform3D(-0.8660236, -0.43301606, 0.25000075, 0.38422763, -0.2563841, 0.886925, -0.3199567, 0.86415505, 0.38841286, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ima Sphere" type="CSGSphere3D" parent="." unique_id=1941587177]
+visible = false
+material_override = ExtResource("9_1yyoe")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1027394048]
+process_mode = 3
+offset_right = 1920.0
+offset_bottom = 1080.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1144753488]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Debug Utils" type="Control" parent="SubViewportContainer/SubViewport" unique_id=1581729018]
+process_mode = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,7 +85,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hknqo")
 
-[node name="Coords" type="Label" parent="Debug Utils"]
+[node name="Coords" type="Label" parent="SubViewportContainer/SubViewport/Debug Utils" unique_id=910617075]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
@@ -52,7 +93,7 @@ theme_override_fonts/font = ExtResource("1_jy8ti")
 text = "ρ: θ: φ:"
 script = ExtResource("2_hknqo")
 
-[node name="Label" type="Label" parent="Debug Utils"]
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/Debug Utils" unique_id=1078709082]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -65,7 +106,7 @@ text = "0xDEC"
 horizontal_alignment = 2
 script = ExtResource("4_0pryn")
 
-[node name="Point" type="Panel" parent="Debug Utils"]
+[node name="Point" type="Panel" parent="SubViewportContainer/SubViewport/Debug Utils" unique_id=947025599]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -79,38 +120,32 @@ offset_bottom = 2.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Settings" parent="." node_paths=PackedStringArray("flatController") instance=ExtResource("10_y002a")]
-visible = false
-flatController = NodePath("../World")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_u124o")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.8660236, -0.43301606, 0.25000075, 0.38422763, -0.2563841, 0.886925, -0.3199567, 0.86415505, 0.38841286, 0, 0, 0)
-shadow_enabled = true
-
-[node name="Debug Cam" type="Node3D" parent="." node_paths=PackedStringArray("Camera")]
+[node name="Debug Cam" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=362512031 node_paths=PackedStringArray("Camera")]
+process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 200, 0)
 script = ExtResource("5_fgxar")
 MoveSpeed = 25.0
 MouseSensitivity = 0.2
 Camera = NodePath("Debug Camera")
 
-[node name="Debug Camera" type="Camera3D" parent="Debug Cam" node_paths=PackedStringArray("sphere")]
-size = 3
+[node name="Debug Camera" type="Camera3D" parent="SubViewportContainer/SubViewport/Debug Cam" unique_id=458635398 node_paths=PackedStringArray("sphere")]
+size = 4
 far = 100000.0
 script = ExtResource("6_kip6y")
-sphere = NodePath("../../Ima Sphere")
+sphere = NodePath("../../../../Ima Sphere")
 length = 20
-size = 3
+size = 4
 
-[node name="World" type="Node3D" parent="." node_paths=PackedStringArray("playerNode")]
-script = ExtResource("7_was1v")
-playerNode = NodePath("../Debug Cam")
-lodThresholds = PackedInt32Array(16)
-maxChunkThreads = 8
+[node name="Menu" parent="SubViewportContainer/SubViewport" unique_id=1289615196 instance=ExtResource("7_4ytmu")]
 
-[node name="Ima Sphere" type="CSGSphere3D" parent="."]
+[node name="Crt Display" type="ColorRect" parent="." unique_id=579617986]
+process_mode = 3
 visible = false
-material_override = ExtResource("9_1yyoe")
+material = SubResource("ShaderMaterial_t5d4f")
+offset_top = 0.6741333
+offset_right = 1920.0
+offset_bottom = 1079.3259
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("13_5gwyv")

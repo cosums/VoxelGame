@@ -75,7 +75,7 @@ public partial class DebugCamera : Node3D
 
 	public void Look(double delta)
 	{
-		MouseSensitivity = GameSettings.Instance.mouseSensitivity / 200f;
+		MouseSensitivity = UserSettings.Instance.mouseSensitivity / 200f;
 		
 		camX -= mouseDelta.Y * MouseSensitivity;
 		camX = Mathf.Clamp(camX, -90f, 90f);

@@ -5,9 +5,6 @@ public partial class GameManager : Node
 {
 	public static GameManager Instance { get; private set; }
 
-	public int MODEL = (int) WorldModel.Smooth;
-	public int RD = 8;
-	public int SD = 8;
 	public int SIZE = 8;
 	public bool hasSeenTerminal = false;
 
@@ -16,58 +13,98 @@ public partial class GameManager : Node
 
 	public bool canPause = true;
 
+	public event Action<GameState, GameState> GameStateChanged;
+
 	public enum WorldModel
 	{
 		Flat,
 		Smooth
 	}
 
+	public GameState State { get; private set; }
+
 	public override void _EnterTree()
 	{
-		Input.MouseMode = Input.MouseModeEnum.Captured;
-
 		if (Instance == null)
 		{
 			Instance = this;
 			SetProcess(false);
+			ChangeState(GameState.Playing); //for debug purps
 		}
 		else
 		{
 			QueueFree();
 		}
-	}
 
+	}
+	
     public override void _Ready()
     {
 		ProcessMode = ProcessModeEnum.Always;
     }
 
-	public override void _Input(InputEvent @event)
+	public void ChangeState(GameState newState)
 	{
-		if (@event.IsActionPressed("ui_cancel"))
-		{
-			if (canPause) TogglePause();
-		}
+		if (State == newState) return;
 
-		if (@event.IsActionPressed("debug_draw"))
+		GameState oldState = State;
+		
+		ExitState(State);
+		State = newState;
+		EnterState(State);
+
+		GameStateChanged?.Invoke(oldState, newState);
+	}
+
+	private void EnterState(GameState state)
+	{
+		switch (state)
 		{
-			ToggleDebugDraw();
+			case GameState.Menus:
+				GetTree().Paused = false;
+				Input.MouseMode = Input.MouseModeEnum.Visible;
+				break;
+			case GameState.Playing:
+				GetTree().Paused = false;
+				Input.MouseMode = Input.MouseModeEnum.Captured;
+				break;
+			case GameState.Paused:
+				GetTree().Paused = true;
+				Input.MouseMode = Input.MouseModeEnum.Visible;
+				break;
+			case GameState.Inventory:
+				GetTree().Paused = false;
+				Input.MouseMode = Input.MouseModeEnum.Visible;
+				break;
+			case GameState.Cutscene:
+				GetTree().Paused = false;
+				Input.MouseMode = Input.MouseModeEnum.Captured;
+				break;
 		}
 	}
 
-	private bool isPaused = false;
-	private void TogglePause()
+	private void ExitState(GameState state)
 	{
-		isPaused = !isPaused;
-		GetTree().Paused = isPaused;
-
-		if (!isPaused)
+		switch (state)
 		{
-			Input.MouseMode = Input.MouseModeEnum.Captured;
+			case GameState.Menus:
+				break;
+			case GameState.Playing:
+				break;
+			case GameState.Paused:
+				break;
+			case GameState.Inventory:
+				break;
+			case GameState.Cutscene:
+				break;
 		}
-		else
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("debug_draw"))
 		{
-			Input.MouseMode = Input.MouseModeEnum.Visible;
+			ToggleDebugDraw();
 		}
 	}
 
@@ -86,9 +123,8 @@ public partial class GameManager : Node
 		}
 	}
 
-	public void QuitGame()
+	public void TerminateProcess()
 	{
-		GameSettings.Instance.Save();
 		SaveManager.Instance.SaveData();
 		GetTree().Quit();
     }

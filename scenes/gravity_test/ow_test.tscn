@@ -1,0 +1,371 @@
+[gd_scene format=3 uid="uid://cp1lg00iygm60"]
+
+[ext_resource type="Material" uid="uid://pjlw22np7ngp" path="res://materials/sun_mat.tres" id="1_7lb3b"]
+[ext_resource type="Script" uid="uid://db1d4ikeqkn2u" path="res://scenes/gravity_test/FalseSun.cs" id="1_j2txc"]
+[ext_resource type="Script" uid="uid://bm2d3evmge4h4" path="res://scripts/physics/StarController.cs" id="2_80w8g"]
+[ext_resource type="Script" uid="uid://d15atuy3gno4f" path="res://scenes/gravity_test/StarField.cs" id="2_rg1x8"]
+[ext_resource type="Script" uid="uid://cql4niwy26hs0" path="res://scripts/KeplerianBody.cs" id="3_80w8g"]
+[ext_resource type="PackedScene" uid="uid://b4wwhr8d2doq6" path="res://scenes/ch_player.tscn" id="5_pcyb4"]
+[ext_resource type="Script" uid="uid://bgc5xq8dt0ffr" path="res://scripts/NewtonianObject.cs" id="5_um463"]
+[ext_resource type="PhysicsMaterial" uid="uid://cixewmb2dq805" path="res://materials/player_and_planet.tres" id="5_woblq"]
+[ext_resource type="Material" uid="uid://cb6pcm3x13x0b" path="res://materials/X_axis.tres" id="8_pcyb4"]
+[ext_resource type="Material" uid="uid://cb4rqmhcyabn7" path="res://materials/Y_axis.tres" id="9_otoh3"]
+[ext_resource type="Script" uid="uid://iclm3q47lood" path="res://scripts/player_scripts/DebugCamera.cs" id="10_pcyb4"]
+[ext_resource type="PackedScene" path="res://hearthian_ship.tscn" id="11_otoh3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dgexy"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_umv54"]
+sky_material = SubResource("ProceduralSkyMaterial_dgexy")
+
+[sub_resource type="Environment" id="Environment_7lb3b"]
+background_mode = 2
+sky = SubResource("Sky_umv54")
+ambient_light_color = Color(0.23537052, 0.23537052, 0.23537052, 1)
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 2
+glow_enabled = true
+glow_strength = 1.73
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_otoh3"]
+render_priority = -128
+transparency = 1
+depth_draw_mode = 2
+no_depth_test = true
+shading_mode = 0
+billboard_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rg1x8"]
+emission_shape_scale = Vector3(100, 100, 100)
+emission_shape = 2
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_4v5au"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_dgexy"]
+radius = 500.0
+height = 1000.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dgexy"]
+radius = 500.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j2txc"]
+radius = 100.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_x3j2v"]
+radius = 100.0
+height = 200.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_um463"]
+radius = 100.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_80w8g"]
+radius = 100.0
+height = 200.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cx1rl"]
+radius = 20.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_cx1rl"]
+radius = 20.0
+height = 40.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_woblq"]
+radius = 100.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_7lb3b"]
+radius = 100.0
+height = 200.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_j2txc"]
+radius = 2.0
+height = 4.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_n063t"]
+radius = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_cbvuq"]
+size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pcyb4"]
+size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cbvuq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_otoh3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rg1x8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_otoh3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4v5au"]
+
+[node name="OwTest" type="Node3D" unique_id=1641415726]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=630028099]
+environment = SubResource("Environment_7lb3b")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=830926092 node_paths=PackedStringArray("Camera", "Star")]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
+light_cull_mask = 4294966783
+shadow_enabled = true
+sky_mode = 1
+script = ExtResource("1_j2txc")
+Camera = NodePath("../Hourglass/CH Player")
+Star = NodePath("../Star")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=317942056 node_paths=PackedStringArray("_camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4000, 101, 0)
+material_override = SubResource("StandardMaterial3D_otoh3")
+amount = 100
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_rg1x8")
+draw_pass_1 = SubResource("QuadMesh_4v5au")
+script = ExtResource("2_rg1x8")
+_camera = NodePath("../Debug Cam")
+
+[node name="Star" type="MeshInstance3D" parent="." unique_id=1568394738]
+cast_shadow = 0
+mesh = SubResource("SphereMesh_dgexy")
+surface_material_override/0 = ExtResource("1_7lb3b")
+script = ExtResource("2_80w8g")
+Mass = 100000.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Star" unique_id=1435178547]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Star/StaticBody3D" unique_id=22265286]
+shape = SubResource("SphereShape3D_dgexy")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Star" unique_id=708892972]
+light_energy = 3000.0
+light_cull_mask = 4293919232
+omni_range = 100000.0
+
+[node name="Hourglass" type="AnimatableBody3D" parent="." unique_id=1713372616 node_paths=PackedStringArray("PrimaryBodyNode")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4000, 0, 0)
+physics_material_override = ExtResource("5_woblq")
+script = ExtResource("3_80w8g")
+PrimaryBodyNode = NodePath("../Star")
+Mass = 1000.0
+SemiMajorAxis = 4000.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hourglass" unique_id=421411896]
+shape = SubResource("SphereShape3D_j2txc")
+
+[node name="Mesh" type="MeshInstance3D" parent="Hourglass" unique_id=648491485]
+mesh = SubResource("SphereMesh_x3j2v")
+skeleton = NodePath("../..")
+
+[node name="CH Player" parent="Hourglass" unique_id=102547226 node_paths=PackedStringArray("PrimaryBody") instance=ExtResource("5_pcyb4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 101, 0)
+PrimaryBody = NodePath("..")
+
+[node name="Hearth" type="AnimatableBody3D" parent="." unique_id=941935001 node_paths=PackedStringArray("PrimaryBodyNode")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8000, 0, 0)
+physics_material_override = ExtResource("5_woblq")
+script = ExtResource("3_80w8g")
+PrimaryBodyNode = NodePath("../Star")
+Mass = 1000.0
+SemiMajorAxis = 8000.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hearth" unique_id=1401683483]
+shape = SubResource("SphereShape3D_um463")
+
+[node name="Mesh" type="MeshInstance3D" parent="Hearth" unique_id=1958442688]
+layers = 512
+mesh = SubResource("SphereMesh_80w8g")
+skeleton = NodePath("../..")
+
+[node name="X" type="CSGBox3D" parent="Hearth" unique_id=784908145]
+transform = Transform3D(250, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("8_pcyb4")
+
+[node name="Y" type="CSGBox3D" parent="Hearth" unique_id=775663244]
+transform = Transform3D(1, 0, 0, 0, 250, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("9_otoh3")
+
+[node name="Z" type="CSGBox3D" parent="Hearth" unique_id=2139222751]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 250, 0, 0, 0)
+material_override = ExtResource("9_otoh3")
+
+[node name="AttleRock" type="AnimatableBody3D" parent="." unique_id=1583881989 node_paths=PackedStringArray("PrimaryBodyNode")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3500, 0, 0)
+script = ExtResource("3_80w8g")
+PrimaryBodyNode = NodePath("../Hearth")
+Mass = 250.0
+SemiMajorAxis = 500.0
+SphereOfInfluencePriority = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttleRock" unique_id=343719807]
+shape = SubResource("SphereShape3D_cx1rl")
+
+[node name="Mesh" type="MeshInstance3D" parent="AttleRock" unique_id=1444393494]
+layers = 512
+mesh = SubResource("SphereMesh_cx1rl")
+skeleton = NodePath("../..")
+
+[node name="Brittle" type="AnimatableBody3D" parent="." unique_id=1171232565 node_paths=PackedStringArray("PrimaryBodyNode")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12000, 0, 0)
+script = ExtResource("3_80w8g")
+PrimaryBodyNode = NodePath("../Star")
+Mass = 1000.0
+SemiMajorAxis = 12000.0
+PericenterTime = 1000.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Brittle" unique_id=1473638435]
+shape = SubResource("SphereShape3D_woblq")
+
+[node name="Mesh" type="MeshInstance3D" parent="Brittle" unique_id=772331213]
+layers = 512
+mesh = SubResource("SphereMesh_7lb3b")
+skeleton = NodePath("../..")
+
+[node name="Giants" type="AnimatableBody3D" parent="." unique_id=1155166765 node_paths=PackedStringArray("PrimaryBodyNode")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16000, 0, 0)
+script = ExtResource("3_80w8g")
+PrimaryBodyNode = NodePath("../Star")
+Mass = 1000.0
+SemiMajorAxis = 16000.0
+PericenterTime = 1000.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Giants" unique_id=536929168]
+shape = SubResource("SphereShape3D_woblq")
+
+[node name="Mesh" type="MeshInstance3D" parent="Giants" unique_id=668069851]
+layers = 512
+mesh = SubResource("SphereMesh_7lb3b")
+skeleton = NodePath("../..")
+
+[node name="Dark Bramble" type="AnimatableBody3D" parent="." unique_id=540618286 node_paths=PackedStringArray("PrimaryBodyNode")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20000, 0, 0)
+script = ExtResource("3_80w8g")
+PrimaryBodyNode = NodePath("../Star")
+Mass = 1000.0
+SemiMajorAxis = 20000.0
+PericenterTime = 1000.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dark Bramble" unique_id=1933656867]
+shape = SubResource("SphereShape3D_woblq")
+
+[node name="Mesh" type="MeshInstance3D" parent="Dark Bramble" unique_id=1957949199]
+layers = 512
+mesh = SubResource("SphereMesh_7lb3b")
+skeleton = NodePath("../..")
+
+[node name="Start" type="RigidBody3D" parent="." unique_id=415272127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 948.8897, 158.02873, -37.13977)
+script = ExtResource("5_um463")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Start" unique_id=1183678146]
+mesh = SubResource("SphereMesh_j2txc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Start" unique_id=857510338]
+shape = SubResource("SphereShape3D_n063t")
+
+[node name="Envelope" type="RigidBody3D" parent="." unique_id=561155929]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 855, 0, 818)
+script = ExtResource("5_um463")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Envelope" unique_id=136115290]
+mesh = SubResource("SphereMesh_j2txc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Envelope" unique_id=866220579]
+shape = SubResource("SphereShape3D_n063t")
+
+[node name="Ship" type="RigidBody3D" parent="." unique_id=337637316]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8034.41, 146.95412, 12.181572)
+physics_material_override = ExtResource("5_woblq")
+script = ExtResource("5_um463")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship" unique_id=1030275307]
+mesh = SubResource("BoxMesh_cbvuq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship" unique_id=1168404490]
+shape = SubResource("BoxShape3D_pcyb4")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Ship" unique_id=1480202649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -3, 0)
+shape = SubResource("BoxShape3D_cbvuq")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Ship" unique_id=1142362177]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -3, 0)
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Ship" unique_id=6020269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -3, -2)
+shape = SubResource("BoxShape3D_otoh3")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Ship" unique_id=1252932292]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -3, -2)
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Ship" unique_id=1566939351]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -3, 2)
+shape = SubResource("BoxShape3D_rg1x8")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Ship" unique_id=1572329692]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -3, 2)
+
+[node name="Moon Rock" type="RigidBody3D" parent="." unique_id=1626820102]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3501.1472, 0, 34.181572)
+mass = 20.0
+physics_material_override = ExtResource("5_woblq")
+script = ExtResource("5_um463")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Moon Rock" unique_id=464498498]
+mesh = SubResource("SphereMesh_j2txc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Moon Rock" unique_id=1442450565]
+shape = SubResource("SphereShape3D_n063t")
+
+[node name="Moon Rock2" type="RigidBody3D" parent="." unique_id=1708714326]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 3999.1472, 103.69331, 34.181572)
+mass = 20.0
+physics_material_override = ExtResource("5_woblq")
+script = ExtResource("5_um463")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Moon Rock2" unique_id=1214595613]
+mesh = SubResource("BoxMesh_otoh3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Moon Rock2" unique_id=1097009031]
+shape = SubResource("BoxShape3D_4v5au")
+
+[node name="Debug Cam" type="Node3D" parent="." unique_id=823266960 node_paths=PackedStringArray("Camera")]
+process_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3249.0168, 200, 0)
+script = ExtResource("10_pcyb4")
+MoveSpeed = 500.0
+MouseSensitivity = 0.2
+Camera = NodePath("Debug Camera")
+isactive = true
+
+[node name="Debug Camera" type="Camera3D" parent="Debug Cam" unique_id=796128401]
+far = 100000.0
+
+[node name="Hearthian Ship" parent="." unique_id=189462132 instance=ExtResource("11_otoh3")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 4000.0933, 99.96496, -7.038387)
+visible = false
+script = ExtResource("5_um463")
+
+[node name="Control" type="Control" parent="." unique_id=1096974008]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control" unique_id=565406010]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -33.0
+offset_right = 197.0
+offset_bottom = -10.0
+grow_vertical = 0
+text = "E: change to flight mode"

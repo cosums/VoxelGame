@@ -63,7 +63,16 @@ public partial class SphericalCoordinateDisplay : Label
 		string gps = $"GPS: {latitude} {longitude} {alt:F2}m";
 
 		string chunk = "Chunk: " + GameManager.Instance.chunkInfo;
-		string seed = "Seed: " + GameSettings.Instance.seed;
+		
+		string seed = "Seed: ";
+		if (WorldManager.Instance.worldData == null)
+        {
+            seed += 0.ToString();
+        } else {
+            seed += WorldManager.Instance.worldData.generation.seed.ToString();
+        }
+
+
 
 		Text = worldCoord + "\n" + gps + "\n" + sphericalCoord + "\n" + chunk + "\n" + seed;
 

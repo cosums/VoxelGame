@@ -34,10 +34,10 @@ public partial class LineEditSaver : LineEdit, ISaveable
 
         if (!string.IsNullOrEmpty(_saveID))
         {
-            var field = typeof(GameSettings).GetField(_saveID);
+            var field = typeof(UserSettings).GetField(_saveID);
             if (field != null)
             {
-                field.SetValue(GameSettings.Instance, Convert.ChangeType(seed, field.FieldType));
+                field.SetValue(UserSettings.Instance, Convert.ChangeType(seed, field.FieldType));
             }
         }
 

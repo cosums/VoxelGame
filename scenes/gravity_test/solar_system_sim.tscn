@@ -1,0 +1,188 @@
+[gd_scene format=3 uid="uid://cshssprs7gudw"]
+
+[ext_resource type="Script" uid="uid://crn3kw7ixdqjq" path="res://scripts/CelestialBody.cs" id="1_mft7r"]
+[ext_resource type="Material" uid="uid://pjlw22np7ngp" path="res://materials/sun_mat.tres" id="1_ng1m1"]
+[ext_resource type="Shader" uid="uid://dplpr3753vrww" path="res://shaders/visuals/planet_shader.gdshader" id="3_ng1m1"]
+[ext_resource type="Script" uid="uid://d0akn2qnhwbgk" path="res://scripts/physics/KeplerianBody.cs" id="3_ucnxc"]
+[ext_resource type="Script" uid="uid://bgc5xq8dt0ffr" path="res://scripts/NewtonianObject.cs" id="4_3uqjk"]
+[ext_resource type="Script" uid="uid://iclm3q47lood" path="res://scripts/player_scripts/DebugCamera.cs" id="5_mft7r"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ekipa"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_ng1m1"]
+sky_material = SubResource("ProceduralSkyMaterial_ekipa")
+
+[sub_resource type="Environment" id="Environment_odx8l"]
+background_mode = 2
+sky = SubResource("Sky_ng1m1")
+ambient_light_color = Color(0.10374347, 0.103743546, 0.103743516, 1)
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 2
+glow_enabled = true
+glow_strength = 1.73
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mj8c8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3uqjk"]
+render_priority = 0
+shader = ExtResource("3_ng1m1")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gdqvr"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_481d0"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mft7r"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_481d0"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_mft7r"]
+radius = 10.0
+height = 20.0
+
+[node name="Solar System Simulation" type="Node3D" unique_id=141847183]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2103516901]
+environment = SubResource("Environment_odx8l")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1246762740]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+visible = false
+shadow_enabled = true
+directional_shadow_max_distance = 1.0
+
+[node name="Star" type="CSGSphere3D" parent="." unique_id=725525058]
+transform = Transform3D(500, 0, -0.02617994, 0, 500, 0, 0.02617994, 0, 500, 0, 0, 0)
+material_override = ExtResource("1_ng1m1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Star" unique_id=1900083257]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Star/StaticBody3D" unique_id=1179002074]
+shape = SubResource("SphereShape3D_mj8c8")
+
+[node name="Star Attractor" type="Node3D" parent="Star" unique_id=86709245]
+script = ExtResource("1_mft7r")
+mass = 1000000.0
+dominant = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Star" unique_id=362938744]
+transform = Transform3D(1, 0, 5.235988e-05, 0, 1, 0, -5.235988e-05, 0, 1, 0, 0, 0)
+light_energy = 1000.0
+shadow_enabled = true
+omni_range = 4096.0
+
+[node name="Mercury Like" type="CSGSphere3D" parent="." unique_id=291651084 node_paths=PackedStringArray("primaryBody")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 1388.7083, 0, 8)
+material_override = SubResource("ShaderMaterial_3uqjk")
+script = ExtResource("3_ucnxc")
+primaryBody = NodePath("../Star/Star Attractor")
+eccentricity = 0.05
+semiMajorAxis = 1300.0
+pericenterTime = 20.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Mercury Like" unique_id=14384595]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mercury Like/StaticBody3D" unique_id=162804906]
+shape = SubResource("SphereShape3D_gdqvr")
+
+[node name="Planet Attractor" type="Node3D" parent="Mercury Like" unique_id=1318042893 node_paths=PackedStringArray("bodyRail", "parentBody")]
+script = ExtResource("1_mft7r")
+bodyRail = NodePath("..")
+parentBody = NodePath("../../Star/Star Attractor")
+mass = 10000.0
+
+[node name="Earth Like" type="CSGSphere3D" parent="." unique_id=592925952 node_paths=PackedStringArray("primaryBody")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 2579, 0, 24)
+script = ExtResource("3_ucnxc")
+primaryBody = NodePath("../Star/Star Attractor")
+eccentricity = 0.05
+semiMajorAxis = 2500.0
+pericenterTime = 788.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Earth Like" unique_id=1839871330]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Earth Like/StaticBody3D" unique_id=273192677]
+shape = SubResource("SphereShape3D_gdqvr")
+
+[node name="Planet2 Attractor" type="Node3D" parent="Earth Like" unique_id=319978739 node_paths=PackedStringArray("bodyRail", "parentBody")]
+script = ExtResource("1_mft7r")
+bodyRail = NodePath("..")
+parentBody = NodePath("../../Star/Star Attractor")
+mass = 1000.0
+
+[node name="Moon" type="CSGSphere3D" parent="." unique_id=1571323032 node_paths=PackedStringArray("primaryBody")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 2591.2427, 0, 186.80276)
+script = ExtResource("3_ucnxc")
+primaryBody = NodePath("../Earth Like/Planet2 Attractor")
+eccentricity = 0.05
+semiMajorAxis = 200.0
+pericenterTime = 602.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Moon" unique_id=975553729]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Moon/StaticBody3D" unique_id=677461733]
+shape = SubResource("SphereShape3D_gdqvr")
+
+[node name="Moon Attractor" type="Node3D" parent="Moon" unique_id=1313958931 node_paths=PackedStringArray("bodyRail", "parentBody")]
+script = ExtResource("1_mft7r")
+bodyRail = NodePath("..")
+parentBody = NodePath("../../Earth Like/Planet2 Attractor")
+mass = 200.0
+priority = 1
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Moon" unique_id=1869229267]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.13024902, 0.65560454, 0.09773445)
+mass = 62.0
+script = ExtResource("4_3uqjk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Moon/RigidBody3D" unique_id=1114844793]
+mesh = SubResource("CapsuleMesh_481d0")
+skeleton = NodePath("../../../Mercury Like")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Moon/RigidBody3D" unique_id=950256959]
+shape = SubResource("CapsuleShape3D_mft7r")
+
+[node name="Mars Like" type="CSGSphere3D" parent="." unique_id=1644732927 node_paths=PackedStringArray("primaryBody")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 3597, 0, 0)
+script = ExtResource("3_ucnxc")
+primaryBody = NodePath("../Star/Star Attractor")
+eccentricity = 0.05
+semiMajorAxis = 3500.0
+pericenterTime = 31.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Mars Like" unique_id=1315551387]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mars Like/StaticBody3D" unique_id=811529170]
+shape = SubResource("SphereShape3D_gdqvr")
+
+[node name="Planet2 Attractor" type="Node3D" parent="Mars Like" unique_id=308334367 node_paths=PackedStringArray("bodyRail", "parentBody")]
+script = ExtResource("1_mft7r")
+bodyRail = NodePath("..")
+parentBody = NodePath("../../Star/Star Attractor")
+mass = 1000.0
+
+[node name="PathParent" type="Node3D" parent="." unique_id=63071362]
+visible = false
+
+[node name="Debug Camera" type="Node3D" parent="." unique_id=750719276 node_paths=PackedStringArray("Camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 259.06207, 0)
+script = ExtResource("5_mft7r")
+MoveSpeed = 500.0
+MouseSensitivity = 0.2
+Camera = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="Debug Camera" unique_id=1706778711]
+far = 10000.0
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1803307873]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1392.3472, 49.970512, -754.262)
+script = ExtResource("4_3uqjk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=2027952523]
+shape = SubResource("SphereShape3D_481d0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=2043437927]
+mesh = SubResource("SphereMesh_mft7r")

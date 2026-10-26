@@ -1,0 +1,172 @@
+[gd_scene format=3 uid="uid://bo1a4m1va44nc"]
+
+[ext_resource type="FontFile" uid="uid://lyvcfdn7evxc" path="res://fonts/RobotoMono-Bold.ttf" id="1_5cb75"]
+[ext_resource type="FontFile" uid="uid://dk2wr20mtrc47" path="res://fonts/JetBrainsMono-Bold.ttf" id="2_ub220"]
+[ext_resource type="Script" uid="uid://ddnxuw7n3r7fo" path="res://scripts/ui_scripts/main_menu/MMLaunchButton.cs" id="3_ij111"]
+[ext_resource type="Script" uid="uid://dym5aja16dgyo" path="res://scripts/ui_scripts/main_menu/MMSettingsButton.cs" id="5_qyf2t"]
+[ext_resource type="Script" uid="uid://c80urqum0pe3o" path="res://scripts/ui_scripts/main_menu/MMTerminateButton.cs" id="6_j5wxk"]
+[ext_resource type="FontFile" uid="uid://bvokmmja2kuv1" path="res://fonts/JetBrainsMono-Regular.ttf" id="7_34w4w"]
+[ext_resource type="Script" uid="uid://db7c5ndr4m2by" path="res://scripts/ui_scripts/VersionDisplayer.cs" id="8_mayu8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pacj"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8wfqe"]
+font = ExtResource("1_5cb75")
+font_size = 100
+font_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8wfqe"]
+color = Color(0, 1, 0, 1)
+thickness = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_btxxm"]
+color = Color(0, 0.011764706, 0, 0)
+thickness = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_m1kxf"]
+font = ExtResource("2_ub220")
+font_size = 36
+font_color = Color(0, 0.45490196, 0, 1)
+
+[node name="Menu UI" type="Control" unique_id=132162756]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="Panel" parent="." unique_id=509488177]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7pacj")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=411622899]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.0011744)
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 1400
+theme_override_constants/margin_bottom = 200
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1383259320]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer" unique_id=324782334]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "0xDEC"
+label_settings = SubResource("LabelSettings_8wfqe")
+vertical_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=949988656]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxLine_8wfqe")
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=456503153]
+layout_mode = 2
+theme_override_constants/separation = 72
+theme_override_styles/separator = SubResource("StyleBoxLine_btxxm")
+
+[node name="Launch Button" type="Button" parent="MarginContainer/VBoxContainer" unique_id=339359565]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_ub220")
+theme_override_font_sizes/font_size = 36
+text = " World Gen"
+alignment = 0
+script = ExtResource("3_ij111")
+scenePath = "res://scenes/ui/saves_menu.tscn"
+normalText = " World Gen"
+hoveredText = ">World Gen"
+
+[node name="Launch Button2" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1323841950]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_ub220")
+theme_override_font_sizes/font_size = 36
+text = " Physics Sim"
+alignment = 0
+script = ExtResource("3_ij111")
+scenePath = "res://scenes/gravity_test/ow_test.tscn"
+normalText = " Physics Sim"
+hoveredText = ">Physics Sim"
+
+[node name="Connect Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1839456717]
+layout_mode = 2
+text = "Connect"
+label_settings = SubResource("LabelSettings_m1kxf")
+
+[node name="Setting Button" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1180526216]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_ub220")
+theme_override_font_sizes/font_size = 36
+text = " Settings"
+alignment = 0
+script = ExtResource("5_qyf2t")
+settingsPath = "res://scenes/ui/settings_menu_v2.tscn"
+normalText = " Settings"
+hoveredText = ">Settings"
+
+[node name="Terminate Button" type="Button" parent="MarginContainer/VBoxContainer" unique_id=515273058]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_ub220")
+theme_override_font_sizes/font_size = 36
+text = " Terminate"
+alignment = 0
+script = ExtResource("6_j5wxk")
+normalText = " Terminate"
+hoveredText = ">Terminate"
+
+[node name="Version Label" type="Label" parent="." unique_id=1514644144]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 1.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("7_34w4w")
+text = "vMajor.Minor.Patch-tag"
+script = ExtResource("8_mayu8")
+
+[node name="Author" type="Label" parent="." unique_id=906629944]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -269.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("7_34w4w")
+text = "(c) 2025-2026 Deratuel"
+horizontal_alignment = 2

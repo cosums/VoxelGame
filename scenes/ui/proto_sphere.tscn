@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvr6701ug2mub"]
+
+[ext_resource type="PackedScene" uid="uid://wmxtyhixof3k" path="res://models/proto_sphere.fbx" id="1_1go83"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1go83"]
+albedo_color = Color(0, 1, 0, 1)
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+
+[node name="proto_sphere" instance=ExtResource("1_1go83")]
+
+[node name="Cube" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_1go83")

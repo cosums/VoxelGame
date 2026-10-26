@@ -16,4 +16,13 @@ export_credentials.cfg
 data_*/
 mono_crash.*.json
 
+# Cpp stuff
+
+bin/*.dll
+bin/*.lib
+bin/*.exp
+bin/*.pdb
+native/.sconsign.dblite
+*.obj
+
 .vscode/

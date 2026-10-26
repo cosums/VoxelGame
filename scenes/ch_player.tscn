@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://b4wwhr8d2doq6"]
+
+[ext_resource type="Script" uid="uid://boieb21yfu4nq" path="res://scripts/CHNewtonianPlayer.cs" id="1_mmeo6"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_j2txc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n063t"]
+
+[node name="CH Player" type="CharacterBody3D" unique_id=102547226 node_paths=PackedStringArray("PrimaryBody", "VisualBody", "CameraAnchor")]
+platform_on_leave = 2
+script = ExtResource("1_mmeo6")
+PrimaryBody = NodePath("")
+VisualBody = NodePath("MeshInstance3D")
+CameraAnchor = NodePath("MeshInstance3D/Camera Anchor")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=260021669]
+mesh = SubResource("CapsuleMesh_j2txc")
+
+[node name="Camera Anchor" type="Node3D" parent="MeshInstance3D" unique_id=973531766]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0.5503769, 0)
+
+[node name="Camera3D" type="Camera3D" parent="MeshInstance3D/Camera Anchor" unique_id=1188979102]
+far = 40000.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=168442526]
+shape = SubResource("CapsuleShape3D_n063t")

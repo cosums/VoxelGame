@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://1iuty7yrl4bb"]
+
+[ext_resource type="Texture2D" uid="uid://c0r1mshc5ia3d" path="res://images/pendulum_ball.png" id="1_ncur7"]
+[ext_resource type="Script" uid="uid://dd50f4y43dfeq" path="res://scripts/ui_scripts/loading_screen/PendulumStarter.cs" id="2_vckdm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vckdm"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ncur7"]
+size = Vector2(10, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vckdm"]
+
+[node name="LoadingPendulum" type="Node2D"]
+
+[node name="Anchor" type="StaticBody2D" parent="."]
+position = Vector2(929, 441)
+scale = Vector2(0.099999994, 0.099999994)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Anchor"]
+scale = Vector2(13.674999, 13.674999)
+shape = SubResource("CircleShape2D_vckdm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Anchor"]
+scale = Vector2(1.0000001, 1.0000001)
+texture = ExtResource("1_ncur7")
+
+[node name="Rope1" type="RigidBody2D" parent="."]
+position = Vector2(930, 487)
+script = ExtResource("2_vckdm")
+startingForce = Vector2(2000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Rope1"]
+texture = SubResource("PlaceholderTexture2D_ncur7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rope1"]
+scale = Vector2(0.5, 5.04)
+shape = SubResource("RectangleShape2D_vckdm")
+
+[node name="Ball" type="Sprite2D" parent="Rope1"]
+position = Vector2(-1, 46)
+scale = Vector2(0.10000001, 0.10000001)
+texture = ExtResource("1_ncur7")
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="Rope1"]
+position = Vector2(0, 46)
+node_a = NodePath("..")
+node_b = NodePath("../../Rope2")
+
+[node name="Rope2" type="RigidBody2D" parent="."]
+position = Vector2(930, 579)
+script = ExtResource("2_vckdm")
+startingForce = Vector2(200, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Rope2"]
+texture = SubResource("PlaceholderTexture2D_ncur7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rope2"]
+scale = Vector2(0.5, 5.04)
+shape = SubResource("RectangleShape2D_vckdm")
+
+[node name="Ball" type="Sprite2D" parent="Rope2"]
+position = Vector2(-1, 46)
+scale = Vector2(0.10000001, 0.10000001)
+texture = ExtResource("1_ncur7")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(930, 441)
+node_a = NodePath("../Anchor")
+node_b = NodePath("../Rope1")

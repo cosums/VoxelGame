@@ -1,12 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://b3wmxbmpohu0b"]
+[gd_scene format=3 uid="uid://b3wmxbmpohu0b"]
 
+[ext_resource type="Script" uid="uid://obierbfj2k3m" path="res://scripts/ui_scripts/Terminal.cs" id="1_5v1ul"]
 [ext_resource type="Script" uid="uid://ykttywp4ocan" path="res://scripts/ui_scripts/LoadSequence.cs" id="1_jhsah"]
 [ext_resource type="Script" uid="uid://b7li5vq5hblgn" path="res://scripts/ui_scripts/AutoScroller.cs" id="2_dhnb1"]
 [ext_resource type="PackedScene" uid="uid://ph7fv8dfp2ow" path="res://scenes/ui/player_out.tscn" id="3_2u1pf"]
-[ext_resource type="FontFile" uid="uid://cx4itb0mvu0em" path="res://fonts/RobotoMono-Regular.ttf" id="3_dhnb1"]
 [ext_resource type="PackedScene" uid="uid://d3l4mea74t85t" path="res://scenes/ui/tor_out.tscn" id="4_f8hcy"]
-[ext_resource type="PackedScene" uid="uid://l5fh7qqldnnp" path="res://scenes/final_generators/freecam_flat.tscn" id="4_tdyej"]
+[ext_resource type="PackedScene" uid="uid://cym04e6rrwwoe" path="res://scenes/ui/main_menu.tscn" id="4_tdyej"]
 [ext_resource type="Script" uid="uid://bai4stic0n7rg" path="res://scripts/ui_scripts/Typewriter.cs" id="5_g6hjw"]
+[ext_resource type="FontFile" uid="uid://bvokmmja2kuv1" path="res://fonts/JetBrainsMono-Regular.ttf" id="7_tdyej"]
+[ext_resource type="Shader" uid="uid://b2endrlaiierf" path="res://shaders/visuals/main_menu_crt.gdshader" id="8_mleag"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4bas"]
 bg_color = Color(0, 0, 0, 1)
@@ -23,7 +25,18 @@ bg_color = Color(0.122252, 0.122252, 0.122252, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dhnb1"]
 
-[node name="Terminal" type="Control"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_5v1ul"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hiern"]
+resource_local_to_scene = true
+shader = ExtResource("8_mleag")
+shader_parameter/viewport_texture = SubResource("ViewportTexture_5v1ul")
+shader_parameter/band_strength = 0.1950000092625
+shader_parameter/band_density = 274.31200827982
+shader_parameter/warp_amount = 0.12800000608
+
+[node name="Terminal" type="Control" unique_id=1755735557]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -31,21 +44,31 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5v1ul")
 
-[node name="Game Logic" type="Node" parent="." node_paths=PackedStringArray("TerminalBox", "typewriter", "terminalLine")]
+[node name="Game Logic" type="Node" parent="." unique_id=1150457537 node_paths=PackedStringArray("TerminalBox", "typewriter", "terminalLine")]
 script = ExtResource("1_jhsah")
-TerminalBox = NodePath("../Backdrop/MarginContainer/Rows/Output/Scroller/History")
+TerminalBox = NodePath("../SubViewportContainer/SubViewport/Backdrop/MarginContainer/Rows/Output/Scroller/History")
 PlayerOutScene = ExtResource("3_2u1pf")
 TorOutScene = ExtResource("4_f8hcy")
 typewriter = NodePath("../Typewriter")
-terminalLine = NodePath("../Backdrop/MarginContainer/Rows/Input/HBoxContainer/Command Line")
+terminalLine = NodePath("../SubViewportContainer/SubViewport/Backdrop/MarginContainer/Rows/Input/HBoxContainer/Command Line")
 level = ExtResource("4_tdyej")
 
-[node name="Typewriter" type="Node" parent="."]
+[node name="Typewriter" type="Node" parent="." unique_id=755850269]
 script = ExtResource("5_g6hjw")
 
-[node name="Backdrop" type="PanelContainer" parent="."]
-layout_mode = 1
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=216128058]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=286671471]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Backdrop" type="PanelContainer" parent="SubViewportContainer/SubViewport" unique_id=983485640]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -53,54 +76,65 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h4bas")
 
-[node name="MarginContainer" type="MarginContainer" parent="Backdrop"]
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/Backdrop" unique_id=229123748]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Rows" type="VBoxContainer" parent="Backdrop/MarginContainer"]
+[node name="Rows" type="VBoxContainer" parent="SubViewportContainer/SubViewport/Backdrop/MarginContainer" unique_id=279125057]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Output" type="PanelContainer" parent="Backdrop/MarginContainer/Rows"]
+[node name="Output" type="PanelContainer" parent="SubViewportContainer/SubViewport/Backdrop/MarginContainer/Rows" unique_id=1040699252]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_m430i")
 
-[node name="Scroller" type="ScrollContainer" parent="Backdrop/MarginContainer/Rows/Output"]
+[node name="Scroller" type="ScrollContainer" parent="SubViewportContainer/SubViewport/Backdrop/MarginContainer/Rows/Output" unique_id=1135671447]
 layout_mode = 2
 script = ExtResource("2_dhnb1")
 
-[node name="History" type="VBoxContainer" parent="Backdrop/MarginContainer/Rows/Output/Scroller"]
+[node name="History" type="VBoxContainer" parent="SubViewportContainer/SubViewport/Backdrop/MarginContainer/Rows/Output/Scroller" unique_id=1871346581]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Input" type="PanelContainer" parent="Backdrop/MarginContainer/Rows"]
+[node name="Input" type="PanelContainer" parent="SubViewportContainer/SubViewport/Backdrop/MarginContainer/Rows" unique_id=439932862]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sy66w")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Backdrop/MarginContainer/Rows/Input"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport/Backdrop/MarginContainer/Rows/Input" unique_id=1905261447]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="Caret" type="Label" parent="Backdrop/MarginContainer/Rows/Input/HBoxContainer"]
+[node name="Caret" type="Label" parent="SubViewportContainer/SubViewport/Backdrop/MarginContainer/Rows/Input/HBoxContainer" unique_id=218226424]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_fonts/font = ExtResource("3_dhnb1")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("7_tdyej")
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_sy66w")
 text = " > "
 
-[node name="Command Line" type="LineEdit" parent="Backdrop/MarginContainer/Rows/Input/HBoxContainer"]
+[node name="Command Line" type="LineEdit" parent="SubViewportContainer/SubViewport/Backdrop/MarginContainer/Rows/Input/HBoxContainer" unique_id=214866747]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_fonts/font = ExtResource("3_dhnb1")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("7_tdyej")
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vs6ym")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_dhnb1")
 keep_editing_on_text_submit = true
 caret_blink = true
+
+[node name="Crt Display" type="ColorRect" parent="." unique_id=1354622291]
+material = SubResource("ShaderMaterial_hiern")
+layout_mode = 0
+offset_top = 0.6741333
+offset_right = 1920.0
+offset_bottom = 1079.3259
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

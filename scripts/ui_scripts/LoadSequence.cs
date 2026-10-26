@@ -31,7 +31,7 @@ public partial class LoadSequence : Node
     {
         if (@event.IsActionPressed("skip_lore")) {
             LoadLevel();
-            GameSettings.Instance.hasSeenTerminal = true;
+            UserSettings.Instance.hasSeenTerminal = true;
         }
     }
 
@@ -57,35 +57,30 @@ public partial class LoadSequence : Node
         await AddLabelTimer(TorOutScene, "(c) Torican Archive. All rites observed.", 0, 0);
         await AddLabelTimer(TorOutScene, " ", 0, 3f);
 
-        await AddLabelTimer(TorOutScene, "This is a rudimentary performance test of various Interfaces.");
-        await AddLabelTimer(TorOutScene, " ", 0, 2f);
-        await AddLabelTimer(TorOutScene, "You are expected to test the Process's performance with various settings and submit your results.");
+        await AddLabelTimer(TorOutScene, "In further progression towards fulfilling the 3rd Rite, the ability to save generated Instances of the Process has been added.");
         await AddLabelTimer(TorOutScene, " ", 0, 2f);
 
-        await AddLabelTimer(TorOutScene, "You may adjust them in the settings menu by inputting 'escape' at any time.");
+        await AddLabelTimer(TorOutScene, "Note that this system is rudimentary. Instances may only work in the version they were created in.");
         await AddLabelTimer(TorOutScene, " ", 0, 2f);
 
-        await AddLabelTimer(TorOutScene, "Additional debug options are explained where you sourced this file.");
+        await AddLabelTimer(TorOutScene, "There have also been some stability and compression issues. Do not attempt to load massive regions.");
         await AddLabelTimer(TorOutScene, " ", 0, 2f);
 
-        await AddLabelTimer(TorOutScene, "Should you find your Interface unable to support the Process, make a mark of such.");
-        await AddLabelTimer(TorOutScene, " ", 0, 2f);
-
-        await AddLabelTimer(TorOutScene, "Not all will be compatible.");
+        await AddLabelTimer(TorOutScene, "Further optimizations will remain the main focus.");
         await AddLabelTimer(TorOutScene, " ", 0, 2f);
 
         await AddLabelTimer(TorOutScene, $"LOADING...", 0.5f);
-
-        GameSettings.Instance.hasSeenTerminal = true;
-
-        Input.MouseMode = Input.MouseModeEnum.Captured;
-        GameManager.Instance.canPause = true;
 
         LoadLevel();
     }
 
     private void LoadLevel()
     {
+        UserSettings.Instance.hasSeenTerminal = true;
+
+        //Input.MouseMode = Input.MouseModeEnum.Captured;
+        GameManager.Instance.canPause = true;
+        
         GetTree().ChangeSceneToPacked(level);
     }
 

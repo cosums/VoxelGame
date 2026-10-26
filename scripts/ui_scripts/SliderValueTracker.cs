@@ -14,6 +14,6 @@ public partial class SliderValueTracker : Label
     private void UpdateText(double value)
     {
         int intValue = (int)value;
-        Text = "   " + intValue.ToString("D2");
+        Text = Text = $"{value,8:F2}";
     }
 }

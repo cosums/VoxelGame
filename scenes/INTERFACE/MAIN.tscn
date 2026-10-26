@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://7kswv5k4iuc2"]
+
+[ext_resource type="Script" uid="uid://4rhc75v1dt5p" path="res://scripts/manager_scripts/Main.cs" id="1_5id72"]
+[ext_resource type="PackedScene" uid="uid://b3wmxbmpohu0b" path="res://scenes/ui/terminal.tscn" id="2_l3wvn"]
+[ext_resource type="PackedScene" uid="uid://cym04e6rrwwoe" path="res://scenes/ui/main_menu.tscn" id="3_06d1e"]
+
+[node name="PROCESS_LAUNCHER" type="Node"]
+script = ExtResource("1_5id72")
+serverScene = ExtResource("2_l3wvn")
+playerScenes = Array[PackedScene]([ExtResource("2_l3wvn"), ExtResource("3_06d1e")])

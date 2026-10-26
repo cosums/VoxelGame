@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhk6apnev6822"]
+
+[ext_resource type="Script" uid="uid://dwm0pt4ci20mo" path="res://scripts/manager_scripts/GameManager.cs" id="1_lrjdb"]
+[ext_resource type="Script" uid="uid://2ta0ohrof2wn" path="res://scripts/manager_scripts/UserSettings.cs" id="2_pbluv"]
+[ext_resource type="Script" uid="uid://88y1g16iklo8" path="res://scripts/manager_scripts/NetworkManager.cs" id="3_xwlq2"]
+[ext_resource type="Script" uid="uid://c0ymnic0vfwdb" path="res://scripts/manager_scripts/SaveManager.cs" id="4_me5fj"]
+[ext_resource type="Script" uid="uid://s3ufmu1mjw23" path="res://scenes/INTERFACE/WorldManager.cs" id="5_0kbrj"]
+
+[node name="PROCESS_MANAGER" type="Node"]
+script = ExtResource("1_lrjdb")
+
+[node name="INTERFACE_SETTINGS" type="Node" parent="."]
+script = ExtResource("2_pbluv")
+
+[node name="THREAD_MANAGER" type="Node" parent="."]
+script = ExtResource("3_xwlq2")
+
+[node name="SAVE_MANAGER" type="Node" parent="."]
+script = ExtResource("4_me5fj")
+
+[node name="WORLD_MANAGER" type="Node" parent="."]
+script = ExtResource("5_0kbrj")

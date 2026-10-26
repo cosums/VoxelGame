@@ -1,0 +1,139 @@
+[gd_scene load_steps=13 format=3 uid="uid://c8ynymmokej6d"]
+
+[ext_resource type="Script" uid="uid://blpp6gex1h7hu" path="res://scripts/ui_scripts/SettingsManager.cs" id="1_0q18a"]
+[ext_resource type="FontFile" uid="uid://dk2wr20mtrc47" path="res://fonts/JetBrainsMono-Bold.ttf" id="3_3xddx"]
+[ext_resource type="Script" uid="uid://b0bkecktvqul4" path="res://scripts/ui_scripts/PMResumeButton.cs" id="3_coo1x"]
+[ext_resource type="Script" uid="uid://bppmrokna3ox4" path="res://scripts/ui_scripts/PMSettingsButton.cs" id="4_coo1x"]
+[ext_resource type="Script" uid="uid://t1cmorbqhyen" path="res://scripts/ui_scripts/PMHaltButton.cs" id="5_coo1x"]
+[ext_resource type="FontFile" uid="uid://bvokmmja2kuv1" path="res://fonts/JetBrainsMono-Regular.ttf" id="13_ybc7j"]
+[ext_resource type="Texture2D" uid="uid://dcpgixvifeh6m" path="res://icons/clipboard.png" id="18_tm0rn"]
+[ext_resource type="Script" uid="uid://ddfncmtap2wb" path="res://scripts/ui_scripts/SystemCopy.cs" id="19_0rxam"]
+[ext_resource type="Script" uid="uid://db7c5ndr4m2by" path="res://scripts/ui_scripts/VersionDisplayer.cs" id="20_dfvc5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pacj"]
+bg_color = Color(0, 0, 0, 0.7294118)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8wfqe"]
+font = ExtResource("3_3xddx")
+font_size = 100
+font_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7pacj"]
+color = Color(0, 1, 0, 1)
+thickness = 3
+
+[node name="Pause Menu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0q18a")
+
+[node name="Backdrop" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7pacj")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.0011744)
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Pause Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "<PROCESS SUSPENDED>"
+label_settings = SubResource("LabelSettings_8wfqe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 128
+theme_override_styles/separator = SubResource("StyleBoxLine_7pacj")
+
+[node name="Resume Button2" type="Button" parent="MarginContainer/VBoxContainer" node_paths=PackedStringArray("settingsManager")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_3xddx")
+theme_override_font_sizes/font_size = 80
+text = " RESUME "
+script = ExtResource("3_coo1x")
+settingsManager = NodePath("../../..")
+
+[node name="Settings Button3" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_3xddx")
+theme_override_font_sizes/font_size = 80
+text = " SETTINGS "
+script = ExtResource("4_coo1x")
+settingsPath = "res://scenes/ui/settings_menu_v2.tscn"
+
+[node name="Terminate Button" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_3xddx")
+theme_override_font_sizes/font_size = 80
+text = " HALT "
+script = ExtResource("5_coo1x")
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 128
+theme_override_styles/separator = SubResource("StyleBoxLine_7pacj")
+
+[node name="Button" type="Button" parent="MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+tooltip_text = "Copies system information to clipboard for debugging."
+theme_override_colors/icon_normal_color = Color(0.09411765, 1, 0, 1)
+icon = ExtResource("18_tm0rn")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("19_0rxam")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 1.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("13_ybc7j")
+text = "v0.0.0.0.0.0.0.0.0.0.0.0.0.1"
+script = ExtResource("20_dfvc5")

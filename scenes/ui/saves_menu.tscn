@@ -1,0 +1,225 @@
+[gd_scene format=3 uid="uid://bapq0ms2lfhqm"]
+
+[ext_resource type="Script" uid="uid://cwynh44oyjl3w" path="res://scripts/SaveController.cs" id="1_761r8"]
+[ext_resource type="PackedScene" uid="uid://clefwykk2ieuu" path="res://scenes/ui/save_container.tscn" id="2_2m0e4"]
+[ext_resource type="Script" uid="uid://cx4w4v5uil87s" path="res://scripts/SavesReader.cs" id="2_jmll7"]
+[ext_resource type="FontFile" uid="uid://dk2wr20mtrc47" path="res://fonts/JetBrainsMono-Bold.ttf" id="2_nt0t1"]
+[ext_resource type="Script" uid="uid://cr52pvnd4lt4c" path="res://scripts/CreateDialogue.cs" id="3_pwhcd"]
+[ext_resource type="Script" uid="uid://ci31kmhysl6cl" path="res://scripts/ui_scripts/SeedInput.cs" id="4_24u30"]
+[ext_resource type="Script" uid="uid://b2nw21trfgxbi" path="res://scripts/CreateButton.cs" id="4_xwbjr"]
+[ext_resource type="Script" uid="uid://t1cmorbqhyen" path="res://scripts/ui_scripts/PMHaltButton.cs" id="5_24u30"]
+[ext_resource type="Script" uid="uid://0tgjh8w8063" path="res://scripts/LaunchSaveButton.cs" id="6_7v1m1"]
+[ext_resource type="Script" uid="uid://cojnim7csjtgr" path="res://scripts/SavesList.cs" id="6_ck4l1"]
+[ext_resource type="Script" uid="uid://bs1k420na1xkj" path="res://scripts/DeleteSaveButton.cs" id="7_7v1m1"]
+[ext_resource type="Shader" uid="uid://b2endrlaiierf" path="res://shaders/visuals/main_menu_crt.gdshader" id="7_hjgyd"]
+[ext_resource type="PackedScene" uid="uid://l5fh7qqldnnp" path="res://scenes/final_generators/freecam_flat.tscn" id="7_n2m3l"]
+[ext_resource type="FontFile" uid="uid://bvokmmja2kuv1" path="res://fonts/JetBrainsMono-Regular.ttf" id="8_ck4l1"]
+[ext_resource type="Script" uid="uid://db7c5ndr4m2by" path="res://scripts/ui_scripts/VersionDisplayer.cs" id="9_ms70p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pacj"]
+bg_color = Color(0, 0, 0, 0.7294118)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8wfqe"]
+font = ExtResource("2_nt0t1")
+font_size = 100
+font_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7pacj"]
+color = Color(0, 1, 0, 1)
+thickness = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_mm8wc"]
+font = ExtResource("2_nt0t1")
+font_size = 36
+font_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hjgyd"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xwbjr"]
+resource_local_to_scene = true
+shader = ExtResource("7_hjgyd")
+shader_parameter/viewport_texture = SubResource("ViewportTexture_hjgyd")
+shader_parameter/band_strength = 0.250000011875
+shader_parameter/band_density = 248.1650070378375
+shader_parameter/warp_amount = 0.200000057
+
+[node name="Saves Menu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Backdrop" type="Panel" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7pacj")
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.0011744)
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+
+[node name="Save Controller" type="VBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer" node_paths=PackedStringArray("deleteButton", "launchButton")]
+layout_mode = 2
+script = ExtResource("1_761r8")
+deleteButton = NodePath("HBoxContainer/Delete")
+launchButton = NodePath("HBoxContainer/Launch")
+
+[node name="Menu Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller"]
+layout_mode = 2
+text = "<INSTANCES>"
+label_settings = SubResource("LabelSettings_8wfqe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller"]
+layout_mode = 2
+theme_override_constants/separation = 64
+theme_override_styles/separator = SubResource("StyleBoxLine_7pacj")
+
+[node name="Create Dialogue" type="VBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("3_pwhcd")
+
+[node name="Seed Container" type="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller/Create Dialogue"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller/Create Dialogue/Seed Container"]
+layout_mode = 2
+text = "Seed: "
+label_settings = SubResource("LabelSettings_mm8wc")
+
+[node name="Seed" type="LineEdit" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller/Create Dialogue/Seed Container"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 1, 0, 0.6)
+theme_override_fonts/font = ExtResource("8_ck4l1")
+theme_override_font_sizes/font_size = 36
+placeholder_text = "0000000000"
+alignment = 1
+max_length = 10
+script = ExtResource("4_24u30")
+
+[node name="Saves list" type="ScrollContainer" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_ck4l1")
+
+[node name="Saves Reader" type="VBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller/Saves list" node_paths=PackedStringArray("saveController")]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+script = ExtResource("2_jmll7")
+worldButton = ExtResource("2_2m0e4")
+saveController = NodePath("../..")
+
+[node name="HSeparator3" type="HSeparator" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller"]
+layout_mode = 2
+theme_override_constants/separation = 64
+theme_override_styles/separator = SubResource("StyleBoxLine_7pacj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Create" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller/HBoxContainer" node_paths=PackedStringArray("savesReader")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nt0t1")
+theme_override_font_sizes/font_size = 50
+text = " CREATE "
+script = ExtResource("4_xwbjr")
+savesReader = NodePath("../../Saves list/Saves Reader")
+
+[node name="Launch" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nt0t1")
+theme_override_font_sizes/font_size = 50
+disabled = true
+text = " LOAD "
+script = ExtResource("6_7v1m1")
+levelScene = ExtResource("7_n2m3l")
+
+[node name="Delete" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller/HBoxContainer" node_paths=PackedStringArray("savesReader")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nt0t1")
+theme_override_font_sizes/font_size = 50
+disabled = true
+text = " DELETE "
+script = ExtResource("7_7v1m1")
+savesReader = NodePath("../../Saves list/Saves Reader")
+
+[node name="Return" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/Save Controller/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nt0t1")
+theme_override_font_sizes/font_size = 50
+text = " RETURN "
+script = ExtResource("5_24u30")
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 269.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("8_ck4l1")
+text = "v0.0.0.0.0.0.0.0.0.0.0.0.0.1"
+script = ExtResource("9_ms70p")
+
+[node name="Crt Filter" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_xwbjr")
+layout_mode = 0
+offset_top = 0.6741333
+offset_right = 1920.0
+offset_bottom = 1079.3259
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

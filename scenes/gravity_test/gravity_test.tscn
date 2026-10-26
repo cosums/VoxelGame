@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnj1m3cc8abeb"]
+
+[ext_resource type="Script" uid="uid://8hv52d6ugno3" path="res://scripts/physics/KeplerianOrbit.cs" id="1_ekipa"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ekipa"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_umv54"]
+sky_material = SubResource("ProceduralSkyMaterial_ekipa")
+
+[sub_resource type="Environment" id="Environment_odx8l"]
+background_mode = 2
+sky = SubResource("Sky_umv54")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Gravity Test" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_odx8l")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 1.0
+
+[node name="Star" type="CSGSphere3D" parent="."]
+transform = Transform3D(4000, 0, 0, 0, 4000, 0, 0, 0, 4000, 0, 0, 0)
+
+[node name="Planet" type="CSGSphere3D" parent="." node_paths=PackedStringArray("primaryBody")]
+transform = Transform3D(1000, 0, 0, 0, 1000, 0, 0, 0, 1000, 22000, 0, 0)
+script = ExtResource("1_ekipa")
+primaryBody = NodePath("../Star")
+semiMajorAxis = 22000.0
+eccentricity = 0.02
+orbitalPeriod = 10.0
+inclinationDegrees = 10.0
+
+[node name="Planet2" type="CSGSphere3D" parent="." node_paths=PackedStringArray("primaryBody")]
+transform = Transform3D(500, 0, 0, 0, 500, 0, 0, 0, 500, 12508, 0, 0)
+script = ExtResource("1_ekipa")
+primaryBody = NodePath("../Star")
+semiMajorAxis = 12508.0
+eccentricity = 0.3
+orbitalPeriod = 20.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 20000.951, 0)
+far = 400000.0
+
+[node name="Moon1" type="CSGSphere3D" parent="." node_paths=PackedStringArray("primaryBody")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 11407, 0, 0)
+script = ExtResource("1_ekipa")
+primaryBody = NodePath("../Planet2")
+semiMajorAxis = 700.0
+eccentricity = 0.02

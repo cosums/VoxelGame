@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://ddxti2fkatf5p" path="res://scripts/ui_scripts/VersionLabel.cs" id="4_y002a"]
 [ext_resource type="Material" uid="uid://b6taxos2sp26u" path="res://materials/other/sphere.tres" id="6_4ytmu"]
 [ext_resource type="Script" uid="uid://dpr3bvd35eiw8" path="res://scripts/player_scripts/PlayerManager.cs" id="6_qjevc"]
-[ext_resource type="Script" uid="uid://cocedn1olhi73" path="res://scripts/final_generators/FlatController.cs" id="7_xw23w"]
+[ext_resource type="Script" uid="uid://cocedn1olhi73" path="res://scripts/terrain/core/FlatGenerator.cs" id="7_xw23w"]
 [ext_resource type="Script" uid="uid://d4gkshj4ke1ti" path="res://scripts/player_scripts/PlayerController.cs" id="7_y002a"]
 [ext_resource type="Script" uid="uid://bpve2rdngsdyx" path="res://scripts/player_scripts/CameraController.cs" id="8_4ytmu"]
 [ext_resource type="Script" uid="uid://b70kbaa4664ve" path="res://scripts/player_scripts/PlayerInput.cs" id="8_qjevc"]
-[ext_resource type="Script" uid="uid://bvqblrchqxt3c" path="res://scripts/final_generators/RaySphere.cs" id="9_y002a"]
+[ext_resource type="Script" uid="uid://bvqblrchqxt3c" path="res://scripts/player_scripts/RaySphere.cs" id="9_y002a"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ie2ng"]
 sky_top_color = Color(0.21604285, 0.53918487, 0.6721546, 1)

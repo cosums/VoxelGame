@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://h4bbmbdg4w7u"]
+
+[ext_resource type="Script" uid="uid://bv34jugh8wbdf" path="res://scripts/ui_scripts/main_menu/MainMenuController.cs" id="1_m1kxf"]
+[ext_resource type="Script" uid="uid://cvknhqtrilynh" path="res://scripts/ui_scripts/MainMenuControllerv2.cs" id="1_x2yvf"]
+[ext_resource type="PackedScene" uid="uid://dvr6701ug2mub" path="res://scenes/ui/proto_sphere.tscn" id="2_x2yvf"]
+[ext_resource type="Script" uid="uid://8p6pnxlf7372" path="res://scripts/ui_scripts/main_menu/Rotator.cs" id="3_uhagc"]
+[ext_resource type="PackedScene" uid="uid://bo1a4m1va44nc" path="res://scenes/ui/main_menu_ui.tscn" id="4_btxxm"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m1kxf"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_x2yvf"]
+sky_material = SubResource("ProceduralSkyMaterial_m1kxf")
+
+[sub_resource type="Environment" id="Environment_uhagc"]
+background_mode = 1
+background_color = Color(0.07683582, 0.07683582, 0.07683582, 1)
+sky = SubResource("Sky_x2yvf")
+tonemap_mode = 2
+glow_enabled = true
+glow_blend_mode = 0
+
+[node name="Main Menu" type="Node3D"]
+script = ExtResource("1_x2yvf")
+
+[node name="Main Menu Controller" type="Node" parent="."]
+script = ExtResource("1_m1kxf")
+
+[node name="proto_sphere" parent="." instance=ExtResource("2_x2yvf")]
+process_mode = 3
+transform = Transform3D(0.90408254, -0.42735788, 0, 0.42735788, 0.90408254, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_uhagc")
+rotationSpeed = 10.0
+
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uhagc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.914, 0, 3.5)
+fov = 37.8
+
+[node name="Root" parent="." instance=ExtResource("4_btxxm")]
+metadata/_edit_use_anchors_ = true

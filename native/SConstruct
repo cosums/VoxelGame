@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+import glob
+import os
+
+env = SConscript("godot-cpp/SConstruct")
+
+include_dirs = ["src/"] + [d for d in glob.glob("src/**/", recursive=True)]
+env.Append(CPPPATH=sorted(set(include_dirs)))
+
+sources = glob.glob("src/**/*.cpp", recursive=True)
+print("Compiling sources:", sources)
+
+library = env.SharedLibrary(
+    "../bin/libterrain{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+    source=sources,
+)
+Default(library)

@@ -1,0 +1,17 @@
+[gd_resource type="Shader" format=3 uid="uid://ci2hvgfsllhw6"]
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform float blue = 1.0;
+
+void vertex() {
+    VERTEX += vec2(cos(TIME) * 100.0, sin(TIME) * 100.0);
+}
+
+void fragment() {
+    COLOR.b = blue;
+}
+
+"
